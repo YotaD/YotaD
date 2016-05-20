@@ -1,0 +1,146 @@
+#!/usr/bin/env python
+"""
+Yota - An IRC Bot
+Copyright 2008-10, Sean B. Palmer, inamidst.com
+Licensed under the Eiffel Forum License 2.
+
+m5 to OSCEnforcer by Michael S. Yanovich.
+Copyright 2016, Santos D. Dominges
+Yota  by SantosD
+"""
+
+import sys, os, imp, optparse
+from textwrap import dedent as trim
+
+config = 'config.py'
+
+def check_python_version(): 
+   if sys.version_info < (2, 4): 
+      error = 'Error: Require 2.6 o superior, desde www.python.org'
+      print >> sys.stderr, error
+      sys.exit(1)
+
+def create_default_config(fn): 
+   f = open(fn, 'w')
+   print >> f, trim("""\
+   #Copyright 2016, Santos D. Dominges
+   #Yota  by SantosD
+   nick = 'Yota'
+   password = ''
+   host = 'irc.freenode.net'
+   channels = ['#YotaD', '#YotaD-test']
+   owner = 'TuNick'
+
+   # This isn't implemented yet:
+   # serverpass = 'yourserverpassword'
+
+   # These are people who will be able to use admin.py's functions...
+   admins = [owner]
+   exclude = []
+
+   # If you want to enumerate a list of modules rather than disabling
+   # some, use "enable = ['example']", which takes precedent over exclude
+   # 
+   # enable = []
+
+   # Directories to load opt modules from
+   extra = []
+
+   # EOF
+   """)
+   f.close()
+
+def create_config(config): 
+   print 'Creando configuracion :)'
+   create_default_config(config)
+
+   print 'Hecho; ahora puedes editar config.py, y arranca a yota! Disfruta ^-^.'
+   sys.exit(0)
+
+def check_config(): 
+   if not os.path.isfile(config): 
+      create_config(config)
+
+def config_names(config): 
+   config = config or 'config.py'
+
+   def files(d): 
+      names = os.listdir(d)
+      return list(os.path.join(d, fn) for fn in names if fn.endswith('.py'))
+
+   here = os.path.join('.', config)
+   if os.path.isfile(here): 
+      return [here]
+   if os.path.isfile(here + '.py'): 
+      return [here + '.py']
+   if os.path.isdir(here): 
+      return files(here)
+
+   there = os.path.join(config)
+   if os.path.isfile(there): 
+      return [there]
+   if os.path.isfile(there + '.py'): 
+      return [there + '.py']
+   if os.path.isdir(there): 
+      return files(there)
+
+   print >> sys.stderr, "Error: Couldn't find a config file!"
+   print >> sys.stderr, 'What happened to config.py?'
+   sys.exit(1)
+
+def main(argv=None): 
+   # Step One: Parse The Command Line
+
+   parser = optparse.OptionParser('%prog [options]')
+   parser.add_option('-c', '--config', metavar='fn', 
+      help='use this configuration file or directory')
+   opts, args = parser.parse_args(argv)
+   if args: print >> sys.stderr, 'Warning: ignoring spurious arguments'
+
+   # Step Two: Check Dependencies
+
+   check_python_version() # require python2.4 or later
+   check_config() # require ~/.m5, or make it and exit
+
+   # Step Three: Load The Configurations
+
+   config_modules = []
+   for config_name in config_names(opts.config): 
+      name = os.path.basename(config_name).split('.')[0] + '_config'
+      module = imp.load_source(name, config_name)
+      module.filename = config_name
+
+      if not hasattr(module, 'prefix'): 
+         module.prefix = r'\!'
+
+      if not hasattr(module, 'name'): 
+         module.name = 'YotaD - Valencia, Venezuela'
+
+      if not hasattr(module, 'port'): 
+         module.port = 6667
+
+      if module.host == 'irc.example.net': 
+         error = ('Error: you must edit the config file first!\n' + 
+                  "You're currently using %s" % module.filename)
+         print >> sys.stderr, error
+         sys.exit(1)
+
+      config_modules.append(module)
+
+   # Step Four: Load m5
+
+   try: from __init__ import run
+   except ImportError: 
+      try: from m5 import run
+      except ImportError: 
+         print >> sys.stderr, "Error: Couldn't find yota to import"
+         sys.exit(1)
+
+   # Step Five: Initialise And Run The m5's
+
+   # @@ ignore SIGHUP
+   for config_module in config_modules: 
+      run(config_module) # @@ thread this
+
+if __name__ == '__main__': 
+   main()
