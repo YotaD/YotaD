@@ -16,3 +16,6 @@ Instalación y Configuración
 Agradecimiento a Alek Rollyson. Por la idea original de M5.
 
 La mayoría de los módulos los eh escrito y editado añadiendo un auto moderador para tener tu canales libres de lisuras.
+
+
+Agradecimiento a Cristian(linel) por el modulo lag
