@@ -3,6 +3,7 @@
 version.py - m5 Version Module
 Copyright 2009-2013, Michael Yanovich (yanovich.net)
 Copyright 2009-2013, Silas Baronda
+Copyright 2018, Santos David
 Licensed under the Eiffel Forum License 2.
 
 More info:
@@ -14,25 +15,10 @@ from datetime import datetime
 from subprocess import *
 
 
-def git_info():
-    p = Popen(['git', 'log', '-n 1'], stdout=PIPE, close_fds=True)
 
-    commit = p.stdout.readline()
-    author = p.stdout.readline()
-    date = p.stdout.readline()
-    return commit, author, date
-
-
-def version(m5, input):
-    commit, author, date = git_info()
-
-    m5.say(str(input.nick) + ': running version:')
-    m5.say('  ' + commit)
-    m5.say('  ' + author)
-    m5.say('  ' + date)
-version.commands = ['version']
-version.priority = 'medium'
-version.rate = 10
+def ver(m5, input):
+        m5.say('YotaD 1.5 by SantosD')
+ver.commands = ['version']
 
 
 def ctcp_version(m5, input):
@@ -40,7 +26,7 @@ def ctcp_version(m5, input):
     date = date.replace('  ', '')
 
     m5.write(('NOTICE', input.nick),
-            '\x01VERSION Yots 1.5 by SantosD {0} : {1}\x01'.format(commit, date))
+            '\x01VERSION Yots 1.5 by SantosD')
 ctcp_version.rule = '\x01VERSION\x01'
 ctcp_version.rate = 20
 
