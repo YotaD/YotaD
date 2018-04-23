@@ -8,5 +8,6 @@ El creador original: Sean B. Palmer merece el mayor crédito para la creación o
 Lista de contribuidores:
 Santos Dominges (SantosD)
 José Sierra (JoseACS)
+Cristian Castro (linel)
 Domingo Ferrer
 Joel Quintana
