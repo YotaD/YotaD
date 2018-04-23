@@ -20,15 +20,18 @@ doc.rule = ('$nick', '(?i)(?:help|doc) +([A-Za-z]+)(?:\?+)?$')
 doc.example = '$nickname: doc tell?'
 doc.priority = 'low'
 
-def commands(m5, input): 
+def comandos(m5, input): 
    # This function only works in private message
    #if input.sender.startswith('#'): return
    names = ', '.join(sorted(m5.doc.iterkeys()))
-   m5.say("I am sending you a private message of all my commands!")
-   m5.msg(input.nick, 'comandos que reconoce: ' + names + '.')
+   m5.say("Estoy enviando los comandos por pv!")
+   m5.msg(input.nick, 'comandos que reconoce: !nsupdate, !frases, !cowsay, !tw, !twitter, !topic, !devoice, !plugins, !seen, !quit, !stats ' +
+                      '!players, !deop, !github_contribs, !flip_reverse, !version, !list_banned_words, !github_search, !msg, !vhost, !tr ' +
+					  '!nslogin, !caps, !part, !yota, !fm, !ask, !nsregister, !github_user_info, !github_user_search, !reverse, !me, !commands '+
+					  '.join, !color, !mcstatus, !github_prs, !flip, !kick, !voice, !mangle, !op' )
    m5.msg(input.nick, ("Para obtener ayuda, hacer '%s: help ejemplo?' donde ejemplo es el " + "name del comando que desea ayuda.") % m5.nick)
-commands.commands = ['commands']
-commands.priority = 'low'
+comandos.commands = ['comandos']
+comandos.priority = 'low'
 
 #def commandsf(m5, input):
 #   commands(m5, input)
@@ -36,7 +39,7 @@ commands.priority = 'low'
 
 def help(m5, input): 
    response = (
-      'Hola, soy Yota by SantosD :D soy el mejor bot u.u. diga "!commands" y te enviare un PV con todos mis comandos ' + 
+      'Hola, soy Yota by SantosD :D soy el mejor bot u.u. diga "!comandos" y te enviare un PV con todos mis comandos ' + 
       'Soy administrado por %s '
    ) % m5.config.owner
    m5.reply(response)
