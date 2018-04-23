@@ -11,7 +11,7 @@ def lag(m5, input):
     nick = input.group(2)
     lag = str(time())
     ctcp = "\x01PING %s\x01" % lag
-    m5.write(["PRIVMSG", nick, ctcp])
+    m5.write(nick, ctcp)
 lag.commands = ["lag"]
 lag.priority = 'low'
 
