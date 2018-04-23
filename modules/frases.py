@@ -524,7 +524,7 @@ def fact_core(m5, input):
     "Seguir un solo camino es retroceder."
 	]
 
-  m5.say(random.choice(frases))
+  m5.say(random.choice(fact_core))
 
 fact_core.commands = ['frases']
 fact_core.priority = 'low'
