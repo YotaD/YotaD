@@ -20,6 +20,16 @@ doc.rule = ('$nick', '(?i)(?:help|doc) +([A-Za-z]+)(?:\?+)?$')
 doc.example = '$nickname: doc tell?'
 doc.priority = 'low'
 
+def commands(m5, input): 
+   # This function only works in private message
+   #if input.sender.startswith('#'): return
+   names = ', '.join(sorted(m5.doc.iterkeys()))
+   m5.say("I'm sending the commands by pm!")
+   m5.msg(input.nick, 'commands it recognizes: ' + names + '.')
+   m5.msg(input.nick, ("To get help, do '%s: help ejemplo?' where example is the " + "name the command that you want help.") % m5.nick)
+commands.commands = ['commands']
+commands.priority = 'low'
+
 def comandos(m5, input): 
    # This function only works in private message
    #if input.sender.startswith('#'): return
@@ -37,10 +47,19 @@ comandos.priority = 'low'
 #   commands(m5, input)
 #commandsf.commands = ['commands']
 
+def ayuda(m5, input): 
+   response = (
+      'Hola, soy Yota by SantosD :D soy el mejor bot u.u. diga "!commands" y te enviare un PV con todos mis comandos ' + 
+      'Soy administrado por %s '
+   ) % m5.config.owner
+   m5.reply(response)
+ayuda.rule = ('$nick', r'(?i)ayuda(?:[?!]+)?$')
+ayuda.priority = 'low'
+
 def help(m5, input): 
    response = (
-      'Hola, soy Yota by SantosD :D soy el mejor bot u.u. diga "!comandos" y te enviare un PV con todos mis comandos ' + 
-      'Soy administrado por %s '
+      'Hi, I m Yota by SantosD :D I m the best bot u.u. Say "! commands" and I will send you a PV with all my commands ' + 
+      'I am administered by %s '
    ) % m5.config.owner
    m5.reply(response)
 help.rule = ('$nick', r'(?i)help(?:[?!]+)?$')
