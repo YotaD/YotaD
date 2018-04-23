@@ -8,7 +8,7 @@ lag.py - Yota lag module
 from time import time
 
 def lag(m5, input):
-    nick = input.group(2)
+    nick = input.nick
     lag = str(time())
     ctcp = "\x01PING %s\x01" % lag
     m5.msg(nick, ctcp)
