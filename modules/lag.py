@@ -19,7 +19,8 @@ def ctcp_lag(m5, input):
     ping = input.group()
     ping = ping.replace("PING", "")
     ping = ping.replace("\x01", "")
-    lag = float(ping) - time()
-    m5.msg(input.nick, lag)
+    lag = time() - float(ping)
+    m5.msg(input.nick, "lag: %s" % str(round(lag, 2)))
+ctcp_lag.event = "NOTICE"
 ctcp_lag.rule = "\x01PING *.*\x01"
-ctcp_lag.rate = 10
+ctcp_lag.priority = "low"
