@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """
-
 lag.py - Yota lag module
 """
 
@@ -30,3 +29,4 @@ def ctcp_lag(m5, input):
 ctcp_lag.event = "NOTICE"
 ctcp_lag.rule = "\x01PING *.*\x01"
 ctcp_lag.priority = "low"
+
