@@ -22,9 +22,6 @@ ver.commands = ['version']
 
 
 def ctcp_version(m5, input):
-    commit, author, date = git_info()
-    date = date.replace('  ', '')
-
     m5.write(('NOTICE', input.nick),
             '\x01VERSION Yots 1.5 by SantosD')
 ctcp_version.rule = '\x01VERSION\x01'
