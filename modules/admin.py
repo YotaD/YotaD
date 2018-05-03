@@ -119,8 +119,8 @@ voice.priority = 'low'
 
 def devoice(m5, input):
     """
-    Comando para los usuarios de dispositivos en una habitación. Si no se da ninguna mella, 
-    yota separar el nick que envió el comando
+    Comando para los usuarios de dispositivos en una habitacion. Si no se da ninguna mella, 
+    yota separar el nick que envio el comando
     """
     if not input.admin or not input.sender.startswith('#'):
         return
@@ -136,9 +136,9 @@ devoice.priority = 'low'
 
 def auth_request(m5, input):
     """
-    Esto escanear todos los mensajes en una habitación en busca de muescas en la yota
-    la lista de administradores. Si se encuentra uno, se enviará una solicitud de ACC
-    a NickServ. Sólo puede trabajar con Freenode.
+    Esto escanear todos los mensajes en una habitacion en busca de muescas en la yota
+    la lista de administradores. Si se encuentra uno, se enviara una solicitud de ACC
+    a NickServ. Solo puede trabajar con Freenode.
     """
     if input.nick in m5.config.admins:
         m5.msg('NickServ', 'ACC ' + input.nick) 
@@ -148,10 +148,10 @@ auth_request.priority = 'high'
 
 def auth_verify(m5, input):
     """
-    Este esperará a que los avisos de NiCK y explorar en busca de ACC
-    respuestas. Esto verifica con NickServ que mellas en la habitación
+    Este esperara a que los avisos de NiCK y explorar en busca de ACC
+    respuestas. Esto verifica con NickServ que mellas en la habitacion
     se identifican con NickServ por lo que no pueden ser falseadas.
-    Sólo puede trabajar con freenode.
+    Solo puede trabajar con freenode.
     """
     global auth_list
     nick = input.group(1)
@@ -174,7 +174,7 @@ auth_verify.priority = 'high'
 
 def auth_check(m5, nick, target=None):
     """
-    Comprueba si nick está en la lista de autenticación y devuelve verdadero si es así
+    Comprueba si nick esta en la lista de autenticacion y devuelve verdadero si es asi
     """
     global auth_list
     if target == m5.config.nick:
@@ -221,7 +221,7 @@ kick.priority = 'high'
 def topic(m5, input):
     """
     Esto le da a los administradores la capacidad de cambiar el tema.
-    Nota: Uno *no* tiene que ser una OP, uno sólo tiene que estar en la lista de
+    Nota: Uno *no* tiene que ser una OP, uno solo tiene que estar en la lista de
     administradores.
     """
     if not input.admin:
@@ -249,7 +249,7 @@ topic.priority = 'high'
 
 def defend_ground (m5, input):
     """
-    Esta función de auto-re-une a un canal que estaba en si es expulsado de ella.
+    Esta funcion de auto-re-une a un canal que estaba en si es expulsado de ella.
     """
     channel = input.sender
     m5.write(['JOIN'], channel)
