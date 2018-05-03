@@ -49,7 +49,7 @@ comandos.priority = 'low'
 
 def ayuda(m5, input): 
    response = (
-      'Hola, soy Yota by SantosD :D soy el mejor bot u.u. diga "!commands" y te enviare un PV con todos mis comandos ' + 
+      'Hola, soy Yota by SantosD :D soy el mejor bot u.u. diga "!comandos" y te enviare un PV con todos mis comandos ' + 
       'Soy administrado por %s '
    ) % m5.config.owner
    m5.reply(response)
@@ -58,7 +58,7 @@ ayuda.priority = 'low'
 
 def help(m5, input): 
    response = (
-      'Hi, I m Yota by SantosD :D I m the best bot u.u. Say "! commands" and I will send you a PV with all my commands ' + 
+      'Hi, I m Yota by SantosD :D I m the best bot u.u. Say "!commands" and I will send you a PV with all my commands ' + 
       'I am administered by %s '
    ) % m5.config.owner
    m5.reply(response)
