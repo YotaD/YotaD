@@ -25,6 +25,7 @@ class m5(irc.Bot):
       self.doc = {}
       self.stats = {}
       self.setup()
+      self.lag = {}
 
    def setup(self): 
       self.variables = {}
