@@ -16,9 +16,9 @@ from subprocess import *
 
 
 
-def ver(m5, input):
+def version(m5, input):
         m5.say('YotaD 1.5 by SantosD')
-ver.commands = ['version']
+version.commands = ['version']
 
 
 def ctcp_version(m5, input):
